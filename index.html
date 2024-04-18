@@ -8,6 +8,44 @@
 <body>
     <script>
 
+        let choice = ["Rock", "Paper", "Scissors"];
+
+        function getComputerChoice  () {
+            return choice[(Math.floor(Math.random() * choice.length))];
+        }
+        
+        // function getPlayerSelection () {
+        //     let answer = prompt("Your choice", "Enter Here");
+        // }
+
+        let computerSelection = getComputerChoice();
+        let playerSelectionInput = prompt("Rock & Paper & Scissors?", "Enter Here");
+        let playerSelection = playerSelectionInput.charAt(0).toUpperCase() + playerSelectionInput.slice(1).toLowerCase();
+        
+        
+        // to make it visually appealing, upper and lower cases adjusted
+        console.log("You picked " + playerSelection);
+        // because of case sensitivy don't forget to make everything lowercase
+
+
+        function playRound(computerSelection, playerSelection) {
+            if (computerSelection === playerSelection) {
+                return "It's a tie!";            
+            } else if ((computerSelection === "scissors" && playerSelection === "rock") || (computerSelection === "rock" && playerSelection === "paper") || (computerSelection === "paper" && playerSelection === "scissors")) {
+                return "You win! " + playerSelection + " beats " + computerSelection;
+            } else {
+                return "You lose! " + computerSelection + " beats " + playerSelection;
+            }
+        }
+         
+        console.log("Computer chose " + computerSelection + "!")
+        console.log(playRound(computerSelection, playerSelection));
+
+        function playGame() {
+            playRound(computerSelection, playerSelection);
+            
+        }
+
 
     </script>
 </body>
