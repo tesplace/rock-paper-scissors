@@ -7,12 +7,14 @@
 </head>
 <body>
     <script>
+        // base settings for the game, scores and options for computer selection
         let playerScore = 0;
         let computerScore = 0;
         let draw = 0;
 
         let choice = ["Rock", "Paper", "Scissors"];
 
+        // selection functions 
         function getComputerChoice  () {
             return choice[(Math.floor(Math.random() * choice.length))];
         }
@@ -21,7 +23,7 @@
             return prompt("Rock & Paper & Scissors?", "Enter Here");
         }
                 
-
+        // function that plays just one round and adds the outcome to score variable
         function playRound(playerSelection, computerSelection) {
             if (computerSelection === playerSelection) {
                 draw++;
@@ -34,13 +36,8 @@
                 return "You lose! " + computerSelection + " beats " + playerSelection;
             };
         };  
-
-        // const computerSelection = getComputerChoice();
-        // const playerSelectionInput = getPlayerChoice();
-        // const playerSelection = playerSelectionInput.charAt(0).toUpperCase() + playerSelectionInput.slice(1).toLowerCase();
-        // moved inside playGame function
-     
-
+  
+        // function that plays 5 times with the for loop and returns at the end the end result
         function playGame() {
                 
             for ( let i = 0; i < 5; i++) {
@@ -62,39 +59,16 @@
 
             if (playerScore > computerScore) {
                 console.log(playerWin); 
-            } else {
+            } else if (computerScore > playerScore) {
                 console.log(computerWin);
+            } else {
+                console.log("Wow! It's a tie!")
             };
         }
 
+        // to initiate the game 
         playGame();
         
-
-        // function gameScore (result) {
-        //     // let result = playRound ();
-        //     let playerWin = "You beated the Computer with a score of " + playerScore + " - " + computerScore + "!";
-        //     let computeWin = "You got beated by the computer with a score of " + computerScore + " - " + playerScore + ".";
-            
-        //     if (result === "You win! Rock beats Scissors" || "You win! Paper beats Rock"  || "You win! Scissors beats Paper") {
-        //         playerScore++;
-        //     } else if (result === "You lose! Rock beats Scissors" || "You lose! Paper beats Rock"  || "You lose! Scissors beats Paper") {
-        //         computeWin++;
-        //     } else {
-        //         draw++;    
-        //     }
-
-        //     if (playerScore > computerScore) {
-        //         console.log(playerWin);
-        //     } else {
-        //         console.log(computerWin);
-        //     };
-        // };
-
-        
-
-       
-      
-
 
     </script>
 </body>
