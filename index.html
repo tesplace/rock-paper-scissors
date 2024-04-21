@@ -19,7 +19,7 @@
             return choice[(Math.floor(Math.random() * choice.length))];
         }
 
-        function getHumanChoice  () {
+        function getPlayerChoice  () {
             return prompt("Rock & Paper & Scissors?", "Enter Here");
         }
                 
@@ -45,7 +45,7 @@
                 
 
                 const computerSelection = getComputerChoice();
-                const playerSelectionInput = getHumanChoice();
+                const playerSelectionInput = getPlayerChoice();
                 const playerSelection = playerSelectionInput.charAt(0).toUpperCase() + playerSelectionInput.slice(1).toLowerCase();
 
                 console.log("You chose " + playerSelection);
