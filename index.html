@@ -4,70 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock & Paper & Scissors</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
+
+    <h1>ROCK & PAPER & SCISSORS</h1>
+
+    <div id = "buttons">
+        <button class = "rock" onclick = "playRound('Rock')">👊</button> 
+        <button class = "paper" onclick = "playRound('Paper')">✋</button>
+        <button class = "scissors" onclick = "playRound('Scissors')">✌️</button>
+    </div>
+
+    <div id = "picks">
+        <div class = "playerPick"></div> 
+        <div class = "ComputerPick"></div> 
+    </div>
+
+    <div id = "displayResults">
+        <div class = "playerScore">Player: 0</div>
+        <div class = "computerScore">Computer: 0</div>
+        <div class = "drawScore">Draw: 0</div>
+        <div class = "result"></div>
+        <div class = "endResult"></div>
+    </div>
+
+    <button class = "resetButton">Reset</button>
+
     <script>
         // base settings for the game, scores and options for computer selection
-        let playerScore = 0;
-        let computerScore = 0;
-        let draw = 0;
+        let playerScoreCount = 0;
+        let computerScoreCount = 0;
+        let drawScoreCount = 0;
 
         const choice = ["Rock", "Paper", "Scissors"];
 
-        // selection functions 
-        function getComputerChoice  () {
-            return choice[(Math.floor(Math.random() * choice.length))];
-        }
+        // node lists 
 
-        function getPlayerChoice  () {
-            return prompt("Rock & Paper & Scissors?", "Enter Here");
-        }
+        const rock = document.querySelector(".rock");
+        const paper = document.querySelector(".paper");
+        const scissors = document.querySelector(".scissors");
+        const playerScore = document.querySelector(".playerScore");
+        const computerScore = document.querySelector(".computerScore");
+        const result = document.querySelector(".result");
+        const playerPick = document.querySelector(".playerPick");
+        const computerPick = document.querySelector(".ComputerPick");
+        const endResult = document.querySelector(".endResult");
+        const resetButton = document.querySelector(".resetButton");
+        const drawScore = document.querySelector(".drawScore");
+
+
+
+       
+
                 
-        // function that plays just one round and adds the outcome to score variable
-        function playRound(playerSelection, computerSelection) {
+        // function that plays the game end anncounces the winner when someone reaches 5 points. buttons will provide playerSelection variable
+
+        function playRound(playerSelection) {
+            const computerSelection = choice[(Math.floor(Math.random() * choice.length))]
+
             if (computerSelection === playerSelection) {
-                draw++;
-                return "It's a tie!"; 
+                drawScoreCount++;
+                playerPick.textContent = `Player picked ${playerSelection}`;
+                computerPick.textContent = `Computer picked ${computerSelection}`;
+                drawScore.textContent = `Draw: ${drawScoreCount}`; 
+                result.textContent = "It's a tie!"; 
+                // return "It's a tie!"; 
             } else if ((computerSelection === "Scissors" && playerSelection === "Rock") || (computerSelection === "Rock" && playerSelection === "Paper") || (computerSelection === "Paper" && playerSelection === "Scissors")) {
-                playerScore++;
-                return "You win! " + playerSelection + " beats " + computerSelection;
+                playerScoreCount++;
+                playerPick.textContent = `Player picked ${playerSelection}`;
+                computerPick.textContent = `Computer picked ${computerSelection}`;
+                playerScore.textContent = `Player: ${playerScoreCount}`; 
+                result.textContent = "You win! " + playerSelection + " beats " + computerSelection; 
             } else {
-                computerScore++;
-                return "You lose! " + computerSelection + " beats " + playerSelection;
+                computerScoreCount++;
+                playerPick.textContent = `Player picked ${playerSelection}`;
+                computerPick.textContent = `Computer picked ${computerSelection}`;
+                computerScore.textContent = `Computer: ${computerScoreCount}`;
+                result.textContent = "You lose! " + computerSelection + " beats " + playerSelection; 
             };
+
+            if (playerScoreCount === 5 || computerScoreCount === 5) {
+                    if (playerScoreCount===5) {
+                        endResult.textContent = `You won! The final score is Player = ${playerScoreCount} - Computer = ${computerScoreCount}`;
+                        
+                    } else {
+                        endResult.textContent = `You lose! The final score is Player = ${playerScoreCount} - Computer = ${computerScoreCount}`;
+                        
+                    }
+                }
         };  
+
+        // reset button that sets every variable to zero to play again
+
+        function resetAll() {
+            playerScoreCount = 0;
+            computerScoreCount = 0;
+            drawScoreCount = 0;
+            computerScore.textContent = `Computer: ${computerScoreCount}`;
+            playerScore.textContent = `Player: ${playerScoreCount}`;
+            drawScore.textContent = `Draw: ${drawScoreCount}`;
+            endResult.textContent = " ";
+            result.textContent = " ";
+        };
+
+        resetButton.addEventListener('click', resetAll)
+        
+        
+        // old code before we had an ui
+
+            // selection functions 
+            // function getComputerChoice  () {
+            //     return choice[(Math.floor(Math.random() * choice.length))];
+            // }
+
+            // function getPlayerChoice  () {
+            //     return prompt("Rock & Paper & Scissors?", "Enter Here");
+            // }
   
         // function that plays 5 times with the for loop and returns at the end the end result
-        function playGame() {
-                
-            for ( let i = 0; i < 5; i++) {
-                playRound();
-                
+            // function playGame(playerSelection) {
+                    
+            //     // for ( let i = 0; i < 5; i++) {
+            //         playRound();
+                    
 
-                const computerSelection = getComputerChoice();
-                const playerSelectionInput = getPlayerChoice();
-                const playerSelection = playerSelectionInput.charAt(0).toUpperCase() + playerSelectionInput.slice(1).toLowerCase();
+            //         const computerSelection = getComputerChoice();
+            //         // const playerSelectionInput = getPlayerChoice();
+            //         // const playerSelection = playerSelectionInput.charAt(0).toUpperCase() + playerSelectionInput.slice(1).toLowerCase();
 
-                console.log("You chose " + playerSelection);
-                console.log("Computer chose " + computerSelection + ".");
-                console.log(playRound(playerSelection, computerSelection));
-                console.log("Your score = " + playerScore + " | " + "Computer score = " + computerScore);
-            };
+            //         console.log("You chose " + playerSelection);
+            //         console.log("Computer chose " + computerSelection + ".");
+            //         console.log(playRound(playerSelection, computerSelection));
+            //         console.log("Your score = " + playerScore + " | " + "Computer score = " + computerScore);
+            //     // };
 
-            let playerWin = "You beated the Computer with a score of " + playerScore + " - " + computerScore + "!";
-            let computerWin = "You got beated by the computer with a score of " + computerScore + " - " + playerScore + ".";
+            //     let playerWin = "You beated the Computer with a score of " + playerScore + " - " + computerScore + "!";
+            //     let computerWin = "You got beated by the computer with a score of " + computerScore + " - " + playerScore + ".";
 
-            if (playerScore > computerScore) {
-                console.log(playerWin); 
-            } else if (computerScore > playerScore) {
-                console.log(computerWin);
-            } else {
-                console.log("Wow! It's a tie!")
-            };
-        }
+            //     if (playerScore > computerScore) {
+            //         console.log(playerWin); 
+            //     } else if (computerScore > playerScore) {
+            //         console.log(computerWin);
+            //     } else {
+            //         console.log("Wow! It's a tie!")
+            //     };
+            // }
 
         // to initiate the game 
-        playGame();
+            // playGame();
         
 
     </script>
